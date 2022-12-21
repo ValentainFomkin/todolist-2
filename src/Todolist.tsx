@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {FilterValuesType} from './AppWidthRedux';
 import {AddItemForm} from './AddItemForm';
 import {EditableSpan} from './EditableSpan';
@@ -26,7 +26,8 @@ type PropsType = {
     filter: FilterValuesType
 }
 
-export function Todolist(props: PropsType) {
+export const Todolist = memo((props: PropsType) => {
+
     const tasks = useSelector<AppRootState, TaskType[]>(state => state.tasks[props.id])
     const dispatch = useDispatch()
 
@@ -69,6 +70,7 @@ export function Todolist(props: PropsType) {
                 tasksForTodolist.map(t => {
                     return (
                         <TaskWidthRedux
+                            key={t.id}
                             task={t}
                             todolistID={props.id}/>
                     )
@@ -91,6 +93,6 @@ export function Todolist(props: PropsType) {
             </Button>
         </div>
     </div>
-}
+})
 
 
