@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React, {memo, useCallback} from 'react';
 import {FilterValuesType} from './AppWidthRedux';
 import {AddItemForm} from './AddItemForm';
 import {EditableSpan} from './EditableSpan';
@@ -9,6 +9,7 @@ import {addTaskAC} from "./state/task-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "./state/store";
 import {TaskWidthRedux} from "./TaskWidthRedux";
+import {ChangeTodolistTitleAC, RemoveTodolistAC} from "./state/todolists-reducer";
 
 
 export type TaskType = {
@@ -32,16 +33,16 @@ export const Todolist = memo((props: PropsType) => {
     const dispatch = useDispatch()
 
 
-    const addTask = (title: string) => {
+    const addTask = useCallback((title: string) => {
         dispatch(addTaskAC(title, props.id))
-    }
+    }, [dispatch])
 
-    const removeTodolist = () => {
-        props.removeTodolist(props.id);
-    }
-    const changeTodolistTitle = (title: string) => {
-        props.changeTodolistTitle(props.id, title);
-    }
+    const removeTodolist = useCallback(() => {
+        dispatch(RemoveTodolistAC(props.id))
+    }, [dispatch])
+    const changeTodolistTitle = useCallback((title: string) => {
+        dispatch(ChangeTodolistTitleAC(props.id, title))
+    }, [dispatch])
 
     const onAllClickHandler = () => props.changeFilter("all", props.id);
     const onActiveClickHandler = () => props.changeFilter("active", props.id);
