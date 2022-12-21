@@ -33,7 +33,6 @@ function AppWidthReducer() {
     const dispatch = useDispatch()
 
     const todolists = useSelector<AppRootState, TodolistType[]>(state => state.todolists)
-    const tasks = useSelector<AppRootState, TasksStateType>(state => state.tasks)
 
 
     function changeFilter(value: FilterValuesType, todolistId: string) {
