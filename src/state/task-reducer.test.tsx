@@ -1,4 +1,4 @@
-import {TasksStateType} from '../App'
+import {TasksStateType} from '../AppWidthRedux'
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./task-reducer";
 
 let startState: TasksStateType
@@ -65,7 +65,7 @@ test('status of specified task should be changed', () => {
 })
 
 test('title of specified task should be changed', () => {
-   
+
 
     const action = changeTaskTitleAC('2', 'coffee', 'todolistId2')
 
