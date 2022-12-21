@@ -1,13 +1,14 @@
-import React, {ChangeEvent} from 'react';
-import {FilterValuesType} from './App';
+import React from 'react';
+import {FilterValuesType} from './AppWidthRedux';
 import {AddItemForm} from './AddItemForm';
 import {EditableSpan} from './EditableSpan';
 import IconButton from '@mui/material/IconButton/IconButton';
 import {Delete} from "@mui/icons-material";
-import {Button, Checkbox} from "@mui/material";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/task-reducer";
+import {Button} from "@mui/material";
+import {addTaskAC} from "./state/task-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "./state/store";
+import {TaskWidthRedux} from "./TaskWidthRedux";
 
 
 export type TaskType = {
@@ -32,7 +33,6 @@ export function Todolist(props: PropsType) {
 
     const addTask = (title: string) => {
         dispatch(addTaskAC(title, props.id))
-
     }
 
     const removeTodolist = () => {
@@ -67,31 +67,11 @@ export function Todolist(props: PropsType) {
         <div>
             {
                 tasksForTodolist.map(t => {
-                    const onClickHandler = () => dispatch(removeTaskAC(t.id, props.id))
-
-                    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                        let newIsDoneValue = e.currentTarget.checked;
-                        dispatch(changeTaskStatusAC(t.id, newIsDoneValue, props.id))
-
-                    }
-                    const onTitleChangeHandler = (newValue: string) => {
-                        dispatch(changeTaskTitleAC(t.id, newValue, props.id))
-
-                    }
-
-
-                    return <div key={t.id} className={t.isDone ? "is-done" : ""}>
-                        <Checkbox
-                            checked={t.isDone}
-                            color="primary"
-                            onChange={onChangeHandler}
-                        />
-
-                        <EditableSpan value={t.title} onChange={onTitleChangeHandler}/>
-                        <IconButton onClick={onClickHandler}>
-                            <Delete/>
-                        </IconButton>
-                    </div>
+                    return (
+                        <TaskWidthRedux
+                            task={t}
+                            todolistID={props.id}/>
+                    )
                 })
             }
         </div>
