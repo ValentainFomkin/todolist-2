@@ -1,7 +1,7 @@
 import React from 'react';
 import {ChangeTodolistFilterAC, ChangeTodolistTitleAC, RemoveTodolistAC, todolistsReducer} from './todolists-reducer';
 import {v1} from 'uuid';
-import {FilterValuesType, TodolistType} from '../App';
+import {FilterValuesType, TodolistType} from '../AppWidthRedux';
 
 let todolistId1: string
 let todolistId2: string
